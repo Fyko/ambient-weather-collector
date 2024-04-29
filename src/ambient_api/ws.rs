@@ -29,37 +29,37 @@ pub struct WsDeviceData {
 	pub baromrelin: f64,
 	/// Outdoor battery status: 1 = OK, 0 = Low. For Meteobridge users: 1 = Low,
 	/// 0 = OK.
-	pub battout: i64,
+	pub battout: f64,
 	/// Daily rainfall in inches.
-	pub dailyrainin: i64,
+	pub dailyrainin: f64,
 	/// Human-readable date (converted on server from `dateutc`).
 	pub date: String,
 	/// Date and time in milliseconds from 01-01-1970, rounded down to the
 	/// nearest minute.
-	pub dateutc: i64,
+	pub dateutc: f64,
 	/// Dew point in degrees Fahrenheit (calculated on server).
 	pub dew_point: f64,
 	/// Indoor dew point in degrees Fahrenheit.
 	pub dew_pointin: f64,
 	/// Rainfall for the current event in inches.
-	pub eventrainin: i64,
+	pub eventrainin: f64,
 	/// Feels like temperature in degrees Fahrenheit (calculated on server,
 	/// applies formula based on temperature).
 	pub feels_like: f64,
 	/// Indoor feels like temperature in degrees Fahrenheit.
 	pub feels_likein: f64,
 	/// Hourly rainfall in inches.
-	pub hourlyrainin: i64,
+	pub hourlyrainin: f64,
 	/// Outdoor humidity percentage.
-	pub humidity: i64,
+	pub humidity: f64,
 	/// Indoor humidity percentage.
-	pub humidityin: i64,
+	pub humidityin: f64,
 	/// MAC address of the device.
 	pub mac_address: String,
 	/// Maximum wind gust speed in the last day in miles per hour.
 	pub maxdailygust: f64,
 	/// Monthly rainfall in inches.
-	pub monthlyrainin: i64,
+	pub monthlyrainin: f64,
 	/// Solar radiation in watts per square meter.
 	pub solarradiation: f64,
 	/// Outdoor temperature in degrees Fahrenheit.
@@ -67,17 +67,17 @@ pub struct WsDeviceData {
 	/// Indoor temperature in degrees Fahrenheit.
 	pub tempinf: f64,
 	/// Total rainfall in inches since the last factory reset.
-	pub totalrainin: i64,
+	pub totalrainin: f64,
 	/// Ultra-Violet radiation index (integer, except on model WS-8478).
-	pub uv: i64,
+	pub uv: f64,
 	/// Weekly rainfall in inches.
-	pub weeklyrainin: i64,
+	pub weeklyrainin: f64,
 	/// Instantaneous wind direction in degrees (0-360).
-	pub winddir: i64,
+	pub winddir: f64,
 	/// Maximum wind speed in the last 10 minutes in miles per hour.
-	pub windgustmph: i64,
+	pub windgustmph: f64,
 	/// Instantaneous wind speed in miles per hour.
-	pub windspeedmph: i64,
+	pub windspeedmph: f64,
 	/// Yearly rainfall in inches.
-	pub yearlyrainin: i64,
+	pub yearlyrainin: f64,
 }

@@ -1,10 +1,9 @@
 use std::env;
-use std::sync::Arc;
 
 use ambient_api::ws::{WsDeviceData, WsSubscribedPayload};
 use error::BoxDynError;
 use futures_util::FutureExt;
-use rust_socketio::asynchronous::ClientBuilder;
+use rust_socketio::asynchronous::{Client as SocketIoClient, ClientBuilder};
 use rust_socketio::{Payload, TransportType};
 use serde_json::json;
 use tracing_subscriber::prelude::*;
@@ -12,6 +11,27 @@ use tracing_subscriber::{fmt, EnvFilter, Registry};
 
 pub mod ambient_api;
 pub mod error;
+pub mod timescale;
+
+async fn handle_subscribed(data: Payload, _client: SocketIoClient) {
+	let payload = match data {
+		Payload::Text(value) => {
+			let first = &value[0];
+			serde_json::from_value::<WsSubscribedPayload>(first.clone()) // ouch
+		}
+		Payload::Binary(bytes) => serde_json::from_slice::<WsSubscribedPayload>(&bytes),
+		_ => panic!("unexpected payload"),
+	}
+	.expect("failed to parse payload");
+
+	let macs = payload
+		.devices
+		.iter()
+		.map(|d| d.mac_address.as_ref())
+		.collect::<Vec<_>>();
+
+	tracing::info!("successfully subscribed to {}", macs.join(", "));
+}
 
 #[tokio::main]
 async fn main() -> Result<(), BoxDynError> {
@@ -20,48 +40,22 @@ async fn main() -> Result<(), BoxDynError> {
 		.with(fmt::layer())
 		.init();
 
-	let api_key = Arc::new(env::var("AMBIENT_WEATHER_API_KEY").expect("AMBIENT_WEATHER_API_KEY must be set"));
 	let application_key =
 		env::var("AMBIENT_WEATHER_APPLICATION_KEY").expect("AMBIENT_WEATHER_APPLICATION_KEY must be set");
+	let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
-	// let client = AmbientApiClient::new(api_key.clone(), application_key.clone());
-	// let devices = client.get_devices().await?;
-	// tracing::info!("devices: {devices:#?}");
-	// tokio::time::sleep(Duration::from_millis(1_500)).await;
-
-	// let mac_address = devices[0].mac_address.clone();
-	// let data = client.get_device_data(&mac_address).await?;
-	// tracing::info!("data: {data:#?}");
+	let db = timescale::create_db(&database_url).await;
 
 	let socket = ClientBuilder::new(format!(
 		"https://rt2.ambientweather.net/?api=1&applicationKey={application_key}"
 	))
 	.transport_type(TransportType::Websocket)
-	.on("subscribed", |data, _| {
-		async move {
-			let payload = match data {
-				Payload::Text(value) => {
-					let first = &value[0];
-					serde_json::from_value::<WsSubscribedPayload>(first.clone()) // ouch
-				}
-				Payload::Binary(bytes) => serde_json::from_slice::<WsSubscribedPayload>(&bytes),
-				_ => panic!("unexpected payload"),
-			}
-			.expect("failed to parse payload");
-
-			let macs = payload
-				.devices
-				.iter()
-				.map(|d| d.mac_address.as_ref())
-				.collect::<Vec<_>>();
-
-			tracing::info!("successfully subscribed to {}", macs.join(", "));
-		}
-		.boxed()
+	.on("subscribed", |data, socket| {
+		async move { handle_subscribed(data, socket).await }.boxed()
 	})
-	.on("data", |data, _| {
+	.on("data", move |data, _| {
+		let db_clone = db.clone();
 		async move {
-			tracing::debug!("received data: {data:#?}");
 			let payload = match data {
 				Payload::Text(value) => {
 					let first = &value[0];
@@ -72,7 +66,10 @@ async fn main() -> Result<(), BoxDynError> {
 			}
 			.expect("failed to parse payload");
 
-			tracing::info!("received data from {}", payload.mac_address);
+			timescale::insert_ws_data(&db_clone, &payload)
+				.await
+				.expect("failed to insert data");
+			tracing::info!("received and inserted data from {}", payload.mac_address);
 		}
 		.boxed()
 	})
@@ -84,9 +81,9 @@ async fn main() -> Result<(), BoxDynError> {
 	})
 	.on("open", {
 		|_, client| {
-			async move {
-				let api_key = env::var("AMBIENT_WEATHER_API_KEY").expect("AMBIENT_WEATHER_API_KEY must be set");
+			let api_key = env::var("AMBIENT_WEATHER_API_KEY").expect("AMBIENT_WEATHER_API_KEY must be set");
 
+			async move {
 				let subscribe_message = json!({
 					"apiKeys": [api_key],
 				});

@@ -1,0 +1,30 @@
+services:
+  timescale:
+    image: timescale/timescaledb-ha:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?database password required}
+    volumes:
+      - timescale-storage:/home/postgres/pgdata/data
+      - ./docker/postgres/migrations:/docker-entrypoint-initdb.d
+      - ./docker/postgres/postgresql.conf/:/etc/postgresql/postgresql.conf
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d $${POSTGRES_DATABASE} -U $${POSTGRES_USER}",
+        ]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 2G
+    ports:
+      - 5432:5432
+
+volumes:
+  timescale-storage:

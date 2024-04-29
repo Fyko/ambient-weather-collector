@@ -17,6 +17,13 @@ rust_socketio = { version = "0.6.0", features = ["async"] }
 secrecy = { version = "0.8.0", features = ["serde"] }
 serde = { version = "1.0.199", features = ["derive"] }
 serde_json = "1.0.116"
+sqlx = { version = "0.7", features = [
+	"runtime-tokio-rustls",
+	"postgres",
+	"uuid",
+	"time",
+	"json",
+] }
 tokio = { version = "1.37.0", features = [
 	"rt",
 	"rt-multi-thread",

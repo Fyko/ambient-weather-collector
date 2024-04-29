@@ -26,7 +26,7 @@ pub struct ApiDeviceData {
 	pub uv: i64,
 	pub weeklyrainin: i64,
 	pub winddir: i64,
-	pub windgustmph: i64,
+	pub windgustmph: f64,
 	pub windspeedmph: i64,
 	pub yearlyrainin: i64,
 }

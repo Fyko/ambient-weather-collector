@@ -1,0 +1,38 @@
+services:
+  collector:
+    image: ghcr.io/fyko/ambient-weather-collector:latest
+    restart: unless-stopped
+    environment:
+      - AMBIENT_WEATHER_API_KEY=${AMBIENT_WEATHER_API_KEY:?ambient weather api key required}
+      - AMBIENT_WEATHER_APPLICATION_KEY=${AMBIENT_WEATHER_APPLICATION_KEY:?ambient weather application key required}
+      - DATABASE_URL=${DATABASE_URL:?database name required}
+
+  timescale:
+    image: timescale/timescaledb-ha:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?database password required}
+    volumes:
+      - timescale-storage:/home/postgres/pgdata/data
+      - ./docker/postgres/migrations:/docker-entrypoint-initdb.d
+      - ./docker/postgres/postgresql.conf/:/etc/postgresql/postgresql.conf
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d $${POSTGRES_DATABASE} -U $${POSTGRES_USER}",
+        ]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 2G
+    ports:
+      - 8432:8432
+
+volumes:
+  timescale-storage:
