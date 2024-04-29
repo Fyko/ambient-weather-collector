@@ -1,0 +1,196 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n\t\t\t\tinsert into sensor_data(\n\t\t\t\t\tmac_address,\n\t\t\t\t\tbaromabsin,\n\t\t\t\t\tbaromrelin,\n\t\t\t\t\tbattout,\n\t\t\t\t\tdailyrainin,\n\t\t\t\t\tdew_point,\n\t\t\t\t\tdew_pointin,\n\t\t\t\t\teventrainin,\n\t\t\t\t\tfeels_like,\n\t\t\t\t\tfeels_likein,\n\t\t\t\t\thourlyrainin,\n\t\t\t\t\thumidity,\n\t\t\t\t\thumidityin,\n\t\t\t\t\tmaxdailygust,\n\t\t\t\t\tmonthlyrainin,\n\t\t\t\t\tsolarradiation,\n\t\t\t\t\ttempf,\n\t\t\t\t\ttempinf,\n\t\t\t\t\ttotalrainin,\n\t\t\t\t\tuv,\n\t\t\t\t\tweeklyrainin,\n\t\t\t\t\twinddir,\n\t\t\t\t\twindgustmph,\n\t\t\t\t\twindspeedmph,\n\t\t\t\t\tyearlyrainin\n\t\t\t\t) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)\n\t\t\t\treturning *;",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "time",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 1,
+        "name": "mac_address",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "baromabsin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 3,
+        "name": "baromrelin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 4,
+        "name": "battout",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 5,
+        "name": "dailyrainin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 6,
+        "name": "dew_point",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 7,
+        "name": "dew_pointin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 8,
+        "name": "eventrainin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 9,
+        "name": "feels_like",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 10,
+        "name": "feels_likein",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 11,
+        "name": "hourlyrainin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 12,
+        "name": "humidity",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 13,
+        "name": "humidityin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 14,
+        "name": "maxdailygust",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 15,
+        "name": "monthlyrainin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 16,
+        "name": "solarradiation",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 17,
+        "name": "tempf",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 18,
+        "name": "tempinf",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 19,
+        "name": "totalrainin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 20,
+        "name": "uv",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 21,
+        "name": "weeklyrainin",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 22,
+        "name": "winddir",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 23,
+        "name": "windgustmph",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 24,
+        "name": "windspeedmph",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 25,
+        "name": "yearlyrainin",
+        "type_info": "Float8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8",
+        "Float8"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "df5ad07da2b131cdca10a342da4b8074acffce096707e6b4d8ecfdc8753e88c1"
+}

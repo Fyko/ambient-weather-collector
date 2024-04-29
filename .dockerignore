@@ -1,0 +1,12 @@
+.cargo
+.github
+.vscode
+datagrip
+docker
+migrations
+target
+.env*
+.gitignore
+.rustfmt.toml
+docker-compose*
+Makefile.toml
