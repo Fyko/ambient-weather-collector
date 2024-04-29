@@ -11,11 +11,11 @@ FROM chef AS builder
 COPY --from=planner /app/recipe.json recipe.json
 RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
 COPY . .
-RUN cargo build --release --target x86_64-unknown-linux-musl --bin ambient_weather_collector --no-default-features
+RUN cargo build --release --target x86_64-unknown-linux-musl --bin ambient-weather-collector --no-default-features
 
 FROM alpine AS runtime
 WORKDIR /app
-COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/ambient_weather_collector .
+COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/ambient-weather-collector .
 
 RUN ls -la
-CMD ["/app/ambient_weather_collector"]
+CMD ["/app/ambient-weather-collector"]

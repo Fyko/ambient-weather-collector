@@ -14,4 +14,5 @@ Cargo.lock
 *.pdb
 
 .envrc
-.env
+.env*
+!.env
