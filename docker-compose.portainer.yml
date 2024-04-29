@@ -5,13 +5,15 @@ services:
     environment:
       - AMBIENT_WEATHER_API_KEY=${AMBIENT_WEATHER_API_KEY:?ambient weather api key required}
       - AMBIENT_WEATHER_APPLICATION_KEY=${AMBIENT_WEATHER_APPLICATION_KEY:?ambient weather application key required}
-      - DATABASE_URL=${DATABASE_URL:?database name required}
+      - DATABASE_URL=${DATABASE_URL:?database url required}
 
   timescale:
     image: timescale/timescaledb-ha:pg16
     restart: unless-stopped
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?database password required}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?database password required}
+      - POSTGRES_USER=${POSTGRES_USER:?database user required}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE:?database name required}
     volumes:
       - timescale-storage:/home/postgres/pgdata/data
       - ./docker/postgres/migrations:/docker-entrypoint-initdb.d
