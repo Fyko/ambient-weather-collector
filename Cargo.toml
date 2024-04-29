@@ -1,0 +1,32 @@
+[package]
+name = "ambient-weather-collector"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+futures-util = "0.3.30"
+reqwest = { version = "0.12.4", features = [
+	"json",
+	"rustls-tls-webpki-roots",
+	"gzip",
+	"brotli",
+] }
+rust_socketio = { version = "0.6.0", features = ["async"] }
+secrecy = { version = "0.8.0", features = ["serde"] }
+serde = { version = "1.0.199", features = ["derive"] }
+serde_json = "1.0.116"
+tokio = { version = "1.37.0", features = [
+	"rt",
+	"rt-multi-thread",
+	"macros",
+	"time",
+	"signal",
+] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = [
+	"fmt",
+	"env-filter",
+	"json",
+] }

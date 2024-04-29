@@ -1,0 +1,14 @@
+{
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": true,
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "never",
+        "editor.trimAutoWhitespace": "never"
+    },
+    "editor.formatOnSave": true,
+    "rust-analyzer.rustfmt.extraArgs": [
+        "+nightly"
+    ]
+}
