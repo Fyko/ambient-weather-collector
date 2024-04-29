@@ -32,7 +32,7 @@ services:
           cpus: "4"
           memory: 2G
     ports:
-      - 8432:8432
+      - 8432:5432
 
 volumes:
   timescale-storage:
