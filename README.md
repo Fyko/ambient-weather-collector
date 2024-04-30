@@ -1,7 +1,7 @@
 <div align="center">
 	<br>
 	<p>
-		<a href="https://github.com/fyko/ambient-weather-collector"><img src="./.github/assets/banner.png" height="600" alt="grafana example" /></a>
+		<a href="https://github.com/fyko/ambient-weather-collector"><img src="./.github/assets/banner.png" height="558" alt="grafana example" /></a>
 	</p>
 	<br>
 </div>
