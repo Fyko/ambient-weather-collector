@@ -72,6 +72,8 @@ jobs:
       - name: Trigger Portainer Webhook
         if: github.repository == 'Fyko/ambient-weather-collector'
         shell: bash
+        env:
+          PORTAINER_DEPLOY_WEBHOOK: ${{ secrets.PORTAINER_DEPLOY_WEBHOOK }}
         run: |
           webhook_url=$PORTAINER_DEPLOY_WEBHOOK
           if [ -z "$webhook_url" ]; then
@@ -79,4 +81,4 @@ jobs:
             exit 0
           fi
 
-          curl -X POST ${{ secrets.PORTAINER_DEPLOY_WEBHOOK }}
+          curl -X POST $webhook_url
