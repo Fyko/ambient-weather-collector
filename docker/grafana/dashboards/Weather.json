@@ -1,0 +1,1479 @@
+{
+	"annotations": {
+		"list": [
+			{
+				"builtIn": 1,
+				"datasource": {
+					"type": "grafana",
+					"uid": "-- Grafana --"
+				},
+				"enable": true,
+				"hide": true,
+				"iconColor": "rgba(0, 211, 255, 1)",
+				"name": "Annotations & Alerts",
+				"type": "dashboard"
+			}
+		]
+	},
+	"editable": true,
+	"fiscalYearStartMonth": 0,
+	"graphTooltip": 0,
+	"id": 7,
+	"links": [],
+	"liveNow": false,
+	"panels": [
+		{
+			"collapsed": false,
+			"gridPos": {
+				"h": 1,
+				"w": 24,
+				"x": 0,
+				"y": 0
+			},
+			"id": 8,
+			"panels": [],
+			"title": "Summaries",
+			"type": "row"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "thresholds"
+					},
+					"mappings": [],
+					"max": 110,
+					"min": -30,
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "#e3dfed",
+								"value": null
+							},
+							{
+								"color": "#cc99fe",
+								"value": -30
+							},
+							{
+								"color": "#9d00fd",
+								"value": -20
+							},
+							{
+								"color": "#6401cd",
+								"value": -10
+							},
+							{
+								"color": "#3130c9",
+								"value": 0
+							},
+							{
+								"color": "#0099ff",
+								"value": 10
+							},
+							{
+								"color": "#35cad0",
+								"value": 20
+							},
+							{
+								"color": "#01af4e",
+								"value": 30
+							},
+							{
+								"color": "#9bff61",
+								"value": 40
+							},
+							{
+								"color": "#ffff01",
+								"value": 50
+							},
+							{
+								"color": "#febd01",
+								"value": 60
+							},
+							{
+								"color": "#fc9b34",
+								"value": 70
+							},
+							{
+								"color": "#ff6503",
+								"value": 80
+							},
+							{
+								"color": "#ff3300",
+								"value": 90
+							},
+							{
+								"color": "#cf006c",
+								"value": 100
+							},
+							{
+								"color": "#EAB839",
+								"value": 110
+							}
+						]
+					}
+				},
+				"overrides": [
+					{
+						"matcher": {
+							"id": "byName",
+							"options": "tempf"
+						},
+						"properties": [
+							{
+								"id": "displayName",
+								"value": "Actual"
+							}
+						]
+					},
+					{
+						"matcher": {
+							"id": "byName",
+							"options": "feels_like"
+						},
+						"properties": [
+							{
+								"id": "displayName",
+								"value": "Feels Like"
+							}
+						]
+					}
+				]
+			},
+			"gridPos": {
+				"h": 7,
+				"w": 5,
+				"x": 0,
+				"y": 1
+			},
+			"id": 1,
+			"options": {
+				"minVizHeight": 75,
+				"minVizWidth": 75,
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "10.2.0",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", tempf FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "Temperature",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "tempf",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				},
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"hide": false,
+					"rawSql": "SELECT \"time\", feels_like FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "Feels Like",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "feels_like",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Outdoor Temperature",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "thresholds"
+					},
+					"mappings": [],
+					"max": 100,
+					"min": 0,
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "yellow",
+								"value": null
+							},
+							{
+								"color": "green",
+								"value": 20
+							},
+							{
+								"color": "blue",
+								"value": 60
+							}
+						]
+					},
+					"unit": "humidity"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 7,
+				"w": 4,
+				"x": 5,
+				"y": 1
+			},
+			"id": 3,
+			"options": {
+				"minVizHeight": 75,
+				"minVizWidth": 75,
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "10.2.0",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", humidity FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "humidity",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Outdoor Humidity",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "continuous-GrYlRd"
+					},
+					"decimals": 0,
+					"fieldMinMax": false,
+					"mappings": [],
+					"max": 60,
+					"min": 0,
+					"noValue": "0",
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							}
+						]
+					},
+					"unit": "velocitymph"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 7,
+				"w": 3,
+				"x": 9,
+				"y": 1
+			},
+			"id": 9,
+			"options": {
+				"minVizHeight": 75,
+				"minVizWidth": 75,
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "10.2.0",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", windspeedmph FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "windspeedmph",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": "\"time\"",
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Wind Speed",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"decimals": 0,
+					"fieldMinMax": false,
+					"mappings": [],
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							}
+						]
+					},
+					"unit": "degree"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 14,
+				"w": 5,
+				"x": 12,
+				"y": 1
+			},
+			"id": 7,
+			"options": {
+				"allowNeedleCrossLimits": true,
+				"animateNeedleValueTransition": false,
+				"animateNeedleValueTransitionSpeed": 500,
+				"edgeWidth": 0.05,
+				"gaugeRadius": 0,
+				"innerColor": "#ffffff",
+				"markerEndEnabled": false,
+				"markerEndShape": "stub",
+				"markerStartEnabled": false,
+				"markerStartShape": "circle",
+				"maxNeedleAngle": 540,
+				"maxTickAngle": 540,
+				"maxValue": 360,
+				"minValue": 0,
+				"needleColor": "#0099cc",
+				"needleCrossLimitDegrees": 10,
+				"needleLengthNeg": 0,
+				"needleTickGap": 0.05,
+				"needleWidth": 5,
+				"operatorName": "last",
+				"outerEdgeColor": "#0099cc",
+				"padding": 0.05,
+				"pivotColor": "#999999",
+				"pivotRadius": 0.1,
+				"showThresholdBandLowerRange": true,
+				"showThresholdBandMiddleRange": true,
+				"showThresholdBandOnGauge": false,
+				"showThresholdBandUpperRange": true,
+				"showThresholdStateOnBackground": false,
+				"showThresholdStateOnValue": false,
+				"tickEdgeGap": 0.05,
+				"tickFont": "Roboto Mono",
+				"tickLabelColor": "#000000",
+				"tickLabelFontSize": 18,
+				"tickLengthMaj": 0.15,
+				"tickLengthMin": 0.05,
+				"tickMajorColor": "#0099CC",
+				"tickMapConfig": {
+					"tickMaps": [
+						{
+							"enabled": true,
+							"label": "North",
+							"order": 0,
+							"text": "North",
+							"value": "0"
+						},
+						{
+							"enabled": true,
+							"label": "East",
+							"order": 1,
+							"text": "East",
+							"value": "90"
+						},
+						{
+							"enabled": true,
+							"label": "South",
+							"order": 2,
+							"text": "South",
+							"value": "180"
+						},
+						{
+							"enabled": true,
+							"label": "West",
+							"order": 3,
+							"text": "West",
+							"value": "270"
+						},
+						{
+							"enabled": true,
+							"label": "NNE",
+							"order": 4,
+							"text": "NNE",
+							"value": "30"
+						},
+						{
+							"enabled": true,
+							"label": "ENE",
+							"order": 5,
+							"text": "ENE",
+							"value": "60"
+						},
+						{
+							"enabled": true,
+							"label": "NE",
+							"order": 6,
+							"text": "NE",
+							"value": "45"
+						},
+						{
+							"enabled": true,
+							"label": "SE",
+							"order": 7,
+							"text": "SE",
+							"value": "135"
+						},
+						{
+							"enabled": true,
+							"label": "SW",
+							"order": 8,
+							"text": "SW",
+							"value": "225"
+						},
+						{
+							"enabled": true,
+							"label": "NW",
+							"order": 9,
+							"text": "NW",
+							"value": "315"
+						}
+					]
+				},
+				"tickMinorColor": "#000000",
+				"tickSpacingMajor": 45,
+				"tickSpacingMinor": 15,
+				"tickWidthMajor": 5,
+				"tickWidthMinor": 1,
+				"ticknessGaugeBasis": 200,
+				"unitsLabelColor": "#000000",
+				"valueFont": "Roboto Mono",
+				"valueFontSize": 4,
+				"valueYOffset": 0,
+				"zeroNeedleAngle": 180,
+				"zeroTickAngle": 180
+			},
+			"pluginVersion": "2.0.1",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", winddir FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "winddir",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": "\"time\"",
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Wind Direction",
+			"type": "briangann-gauge-panel"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "thresholds"
+					},
+					"mappings": [],
+					"max": 110,
+					"min": -30,
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "#e3dfed",
+								"value": null
+							},
+							{
+								"color": "#cc99fe",
+								"value": -30
+							},
+							{
+								"color": "#9d00fd",
+								"value": -20
+							},
+							{
+								"color": "#6401cd",
+								"value": -10
+							},
+							{
+								"color": "#3130c9",
+								"value": 0
+							},
+							{
+								"color": "#0099ff",
+								"value": 10
+							},
+							{
+								"color": "#35cad0",
+								"value": 20
+							},
+							{
+								"color": "#01af4e",
+								"value": 30
+							},
+							{
+								"color": "#9bff61",
+								"value": 40
+							},
+							{
+								"color": "#ffff01",
+								"value": 50
+							},
+							{
+								"color": "#febd01",
+								"value": 60
+							},
+							{
+								"color": "#fc9b34",
+								"value": 70
+							},
+							{
+								"color": "#ff6503",
+								"value": 80
+							},
+							{
+								"color": "#ff3300",
+								"value": 90
+							},
+							{
+								"color": "#cf006c",
+								"value": 100
+							},
+							{
+								"color": "#EAB839",
+								"value": 110
+							}
+						]
+					}
+				},
+				"overrides": [
+					{
+						"matcher": {
+							"id": "byName",
+							"options": "tempinf"
+						},
+						"properties": [
+							{
+								"id": "displayName",
+								"value": "Actual"
+							}
+						]
+					},
+					{
+						"matcher": {
+							"id": "byName",
+							"options": "feels_likein"
+						},
+						"properties": [
+							{
+								"id": "displayName",
+								"value": "Feels Like"
+							}
+						]
+					}
+				]
+			},
+			"gridPos": {
+				"h": 7,
+				"w": 5,
+				"x": 0,
+				"y": 8
+			},
+			"id": 6,
+			"options": {
+				"minVizHeight": 75,
+				"minVizWidth": 75,
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "10.2.0",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", tempinf FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "Temperature",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "tempinf",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				},
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"hide": false,
+					"rawSql": "SELECT \"time\", feels_likein FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "Feels Like",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "feels_likein",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Indoor Temperature",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "thresholds"
+					},
+					"mappings": [],
+					"max": 100,
+					"min": 0,
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "yellow",
+								"value": null
+							},
+							{
+								"color": "green",
+								"value": 20
+							},
+							{
+								"color": "blue",
+								"value": 60
+							}
+						]
+					},
+					"unit": "humidity"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 7,
+				"w": 4,
+				"x": 5,
+				"y": 8
+			},
+			"id": 4,
+			"options": {
+				"minVizHeight": 75,
+				"minVizWidth": 75,
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "10.2.0",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", humidityin FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "humidityin",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Indoor Humidity",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "continuous-GrYlRd"
+					},
+					"decimals": 0,
+					"fieldMinMax": false,
+					"mappings": [],
+					"max": 60,
+					"min": 0,
+					"noValue": "0",
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							}
+						]
+					},
+					"unit": "velocitymph"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 7,
+				"w": 3,
+				"x": 9,
+				"y": 8
+			},
+			"id": 10,
+			"options": {
+				"minVizHeight": 75,
+				"minVizWidth": 75,
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "10.2.0",
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", windgustmph FROM sensor_data ORDER BY \"time\" DESC LIMIT 1 ",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "windgustmph",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 1,
+						"orderBy": {
+							"property": {
+								"name": "\"time\"",
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Wind Gust",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "palette-classic"
+					},
+					"custom": {
+						"axisBorderShow": false,
+						"axisCenteredZero": false,
+						"axisColorMode": "text",
+						"axisLabel": "",
+						"axisPlacement": "auto",
+						"barAlignment": 0,
+						"drawStyle": "line",
+						"fillOpacity": 0,
+						"gradientMode": "none",
+						"hideFrom": {
+							"legend": false,
+							"tooltip": false,
+							"viz": false
+						},
+						"insertNulls": false,
+						"lineInterpolation": "linear",
+						"lineWidth": 1,
+						"pointSize": 5,
+						"scaleDistribution": {
+							"type": "linear"
+						},
+						"showPoints": "auto",
+						"spanNulls": false,
+						"stacking": {
+							"group": "A",
+							"mode": "none"
+						},
+						"thresholdsStyle": {
+							"mode": "off"
+						}
+					},
+					"mappings": [],
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							}
+						]
+					}
+				},
+				"overrides": [
+					{
+						"matcher": {
+							"id": "byName",
+							"options": "tempf"
+						},
+						"properties": [
+							{
+								"id": "unit",
+								"value": "fahrenheit"
+							}
+						]
+					},
+					{
+						"matcher": {
+							"id": "byName",
+							"options": "windspeedmph"
+						},
+						"properties": [
+							{
+								"id": "unit",
+								"value": "velocitymph"
+							}
+						]
+					}
+				]
+			},
+			"gridPos": {
+				"h": 15,
+				"w": 11,
+				"x": 0,
+				"y": 15
+			},
+			"id": 11,
+			"options": {
+				"legend": {
+					"calcs": [],
+					"displayMode": "list",
+					"placement": "bottom",
+					"showLegend": true
+				},
+				"tooltip": {
+					"mode": "single",
+					"sort": "none"
+				}
+			},
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"rawSql": "SELECT \"time\", windspeedmph FROM sensor_data ORDER BY \"time\" DESC ",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "windspeedmph",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				},
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "builder",
+					"format": "table",
+					"hide": false,
+					"rawSql": "SELECT \"time\", tempf FROM sensor_data ORDER BY \"time\" DESC ",
+					"refId": "B",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "tempf",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"orderBy": {
+							"property": {
+								"name": [
+									"\"time\""
+								],
+								"type": "string"
+							},
+							"type": "property"
+						},
+						"orderByDirection": "DESC"
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Temperature / Wind Speed",
+			"type": "timeseries"
+		},
+		{
+			"datasource": {
+				"type": "postgres",
+				"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+			},
+			"gridPos": {
+				"h": 15,
+				"w": 6,
+				"x": 11,
+				"y": 15
+			},
+			"id": 5,
+			"options": {
+				"cardinalLabels": "cardinal",
+				"colorPalette": "default",
+				"doesLegendOverlay": false,
+				"legendAnchor": "bottom",
+				"legendPosition": "right",
+				"petalsPer90Deg": 4,
+				"showLegend": true,
+				"speedBucketsCount": 8,
+				"speedBucketsSize": 2,
+				"speedBucketsSizeAuto": true,
+				"tooltipDecimalPlaces": 1,
+				"windSpeedUnit": "ms",
+				"windroseLabels": "compass"
+			},
+			"targets": [
+				{
+					"datasource": {
+						"type": "postgres",
+						"uid": "e27acf88-33fa-44ac-9c58-c081db829e7a"
+					},
+					"editorMode": "code",
+					"format": "table",
+					"rawQuery": true,
+					"rawSql": "SELECT\n  \"time\",\n  winddir as wind_direction,\n  windspeedmph as wind_speed\nFROM\n  sensor_data\nORDER BY time desc\nLIMIT 2000;",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [
+									{
+										"name": "\"time\"",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "winddir",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							},
+							{
+								"parameters": [
+									{
+										"name": "windspeedmph",
+										"type": "functionParameter"
+									}
+								],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 50
+					},
+					"table": "sensor_data"
+				}
+			],
+			"title": "Windrose",
+			"type": "operato-windrose-panel"
+		}
+	],
+	"refresh": "10s",
+	"schemaVersion": 38,
+	"tags": [],
+	"templating": {
+		"list": []
+	},
+	"time": {
+		"from": "now-6h",
+		"to": "now"
+	},
+	"timepicker": {},
+	"timezone": "",
+	"title": "Weather",
+	"uid": "a8682ea2-bc7d-4d99-8ad4-3b4abd8f7cc2",
+	"version": 19,
+	"weekStart": ""
+}

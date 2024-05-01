@@ -36,5 +36,31 @@ services:
     ports:
       - 8432:5432
 
+  grafana:
+    image: grafana/grafana-enterprise:latest
+    restart: unless-stopped
+    networks:
+      - default
+      - caddy_network
+    environment:
+      GF_SERVER_DOMAIN: ${GF_SERVER_DOMAIN}
+      GF_SERVER_ROOT_URL: ${GF_SERVER_ROOT_URL}
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: c1k71P4eKyyxUKwHCFvdHFdG3eRwiV25E5GfVcFCGU6RvOTkteJNjrxY6lAUlycn
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - ./.env.prod
+    ports:
+      - 3009:3000
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
 volumes:
   timescale-storage:
+  grafana-storage:
